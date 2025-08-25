@@ -1,5 +1,7 @@
 public class GlobalStringVars
 {
+    
+
     #region Movement
 
     public const string HORIZONTAL_AXIS = "Horizontal";

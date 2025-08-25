@@ -1,26 +1,33 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMovement))]
-[RequireComponent(typeof(Shooter))]
 public class PlayerInput : MonoBehaviour
 {
-    private PlayerMovement playerMovement;
-    private Shooter shooter;
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private Shooter shooter; // Добавляем ссылку на Shooter
+    [SerializeField] private PlayerAnimator playerAnimator;
 
     private void Awake()
     {
-        playerMovement = GetComponent<PlayerMovement>();
-        shooter = GetComponent<Shooter>();
+        // Автоматически находим компоненты если не назначены в инспекторе
+        if (playerMovement == null) playerMovement = GetComponent<PlayerMovement>();
+        if (shooter == null) shooter = GetComponent<Shooter>();
+        if (playerAnimator == null) playerAnimator = GetComponent<PlayerAnimator>();
     }
 
     private void Update()
     {
-        float horizontalDirection = Input.GetAxis(GlobalStringVars.HORIZONTAL_AXIS);
-        bool isJumpButtonPressed = Input.GetButtonDown(GlobalStringVars.JUMP_AXIS);
-
-        if (Input.GetButtonDown(GlobalStringVars.FIRE_1))
-            shooter.Shoot(horizontalDirection);
+        // Движение
+        float horizontalDirection = Input.GetAxis("Horizontal");
+        bool isJumpButtonPressed = Input.GetButtonDown("Jump");
 
         playerMovement.Move(horizontalDirection, isJumpButtonPressed);
+
+        // Стрельба и анимация атаки
+        // Упрощаем вызов - только запуск анимации
+        if (Input.GetButtonDown("Fire1"))
+        {
+            playerAnimator.TriggerAttackAnimation(); // Только анимация
+                                                     // shooter.Shoot() больше не вызываем здесь!
+        }
     }
 }
