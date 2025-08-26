@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Damageable
+  - "\u0415\u0449\u0435 \u043E\u0434\u043D\u043E \u0438\u0441\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435
+    \u0434\u043B\u044F DamageDealer"
+  - CameraConfiner
   layers:
   - Default
   - TransparentFX
@@ -39,6 +42,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3960669973
+    locked: 0
+  - name: Middleground
+    uniqueID: 3338579925
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Characters
+    uniqueID: 2140892017
+    locked: 0
+  - name: Frontground
+    uniqueID: 3307063759
     locked: 0
