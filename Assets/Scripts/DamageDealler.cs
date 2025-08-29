@@ -18,6 +18,11 @@ public class DamageDealler : MonoBehaviour
             collision.gameObject.GetComponent<Health>().TakeDamage(damage);
         }
 
+        if (collision.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<Health>().TakeDamage(damage);
+        }
+
         // Уничтожаем объект только если у него НЕТ тега "Damageable"
         if (!gameObject.CompareTag("Damageable"))
         {

@@ -37,16 +37,30 @@ public class Health : MonoBehaviour
     {
         return isAlive;
     }
+
+    // ДОБАВЛЕННЫЕ МЕТОДЫ ДЛЯ ОТОБРАЖЕНИЯ ЗДОРОВЬЯ:
+
+    /// <summary>
+    /// Возвращает текущее количество здоровья
+    /// </summary>
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    /// <summary>
+    /// Возвращает максимальное количество здоровья
+    /// </summary>
+    public float GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    /// <summary>
+    /// Возвращает процент здоровья от 0 до 1
+    /// </summary>
+    public float GetHealthPercentage()
+    {
+        return currentHealth / maxHealth;
+    }
 }
-
-
-//Теперь другие скрипты могут проверять состояние объекта через:
-//Health health = GetComponent<Health>();
-//if (health.IsAlive())
-//{
-    // Объект жив
-//}
-//else
-//{
-    // Объект мертв
-//}

@@ -8,6 +8,7 @@ TagManager:
   - "\u0415\u0449\u0435 \u043E\u0434\u043D\u043E \u0438\u0441\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435
     \u0434\u043B\u044F DamageDealer"
   - CameraConfiner
+  - ScoreText
   layers:
   - Default
   - TransparentFX
