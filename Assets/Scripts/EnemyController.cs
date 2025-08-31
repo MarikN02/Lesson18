@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float Speed;
-    [SerializeField] private float TimeToRevert; // Добавлен тип float
+    [SerializeField] private float TimeToRevert;
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer sp;
 
@@ -16,7 +14,8 @@ public class EnemyController : MonoBehaviour
     private const float REVERT_STATE = 2;
 
     private float currentState;
-    private float currentTimeToRevert; // Добавлен тип float
+    private float currentTimeToRevert;
+    private bool isFacingRight = false;
 
     private void Start()
     {
@@ -29,7 +28,7 @@ public class EnemyController : MonoBehaviour
     {
         if (currentTimeToRevert >= TimeToRevert)
         {
-            currentTimeToRevert = 0; // Исправлено : на ;
+            currentTimeToRevert = 0;
             currentState = REVERT_STATE;
         }
 
@@ -37,25 +36,48 @@ public class EnemyController : MonoBehaviour
         {
             case IDLE_STATE:
                 currentTimeToRevert += Time.deltaTime;
+                rb.velocity = Vector2.zero;
                 break;
             case WALK_STATE:
-                rb.velocity = Vector2.right * Speed; // Исправлено left на right
+                rb.velocity = Vector2.right * Speed;
                 break;
             case REVERT_STATE:
-                sp.flipX = !sp.flipX;
+                Flip();
                 Speed *= -1;
-                currentState = WALK_STATE; // Добавлено возвращение в состояние ходьбы
+                currentState = WALK_STATE;
                 break;
         }
 
         anim.SetFloat("Velocity", rb.velocity.magnitude);
     }
 
+    private void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        Vector3 scale = transform.localScale;
+        scale.x = Mathf.Abs(scale.x) * (isFacingRight ? 1f : -1f);
+        transform.localScale = scale;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Еще одно исключение для DamageDealer")) // Укажите правильный тег
+        if (collision.CompareTag("Еще одно исключение для DamageDealer"))
         {
             currentState = IDLE_STATE;
+        }
+
+        if (collision.CompareTag("Player"))
+        {
+            anim.SetBool("IsAttacking", true);
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            anim.SetBool("IsAttacking", false);
         }
     }
 }
